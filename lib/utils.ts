@@ -1,12 +1,29 @@
 // lib/utils.ts
-import { subjects, places, actions } from "./data";
+import { whoOptions, whereOptions, whatOptions } from "./data";
 
-export function generateSentence(): string {
-  const subject = subjects[Math.floor(Math.random() * subjects.length)];
-  const place = places[Math.floor(Math.random() * places.length)];
-  const action = actions[Math.floor(Math.random() * actions.length)];
-  return `${subject}が${place}で${action}`;
+// localStorageから選択肢を取得
+export function loadOptions(): {
+  who: string[];
+  where: string[];
+  what: string[];
+} {
+  const who = JSON.parse(localStorage.getItem('whoOptions') || '[]');
+  const where = JSON.parse(localStorage.getItem('whereOptions') || '[]');
+  const what = JSON.parse(localStorage.getItem('whatOptions') || '[]');
+  return {
+    who: who.length > 0 ? who : whoOptions,
+    where: where.length > 0 ? where : whereOptions,
+    what: what.length > 0 ? what : whatOptions,
+  };
 }
 
-// subjects, places, actionsを再エクスポート
-export { subjects, places, actions };
+// localStorageに選択肢を保存
+export function saveOptions(
+  who: string[],
+  where: string[],
+  what: string[]
+): void {
+  localStorage.setItem('whoOptions', JSON.stringify(who));
+  localStorage.setItem('whereOptions', JSON.stringify(where));
+  localStorage.setItem('whatOptions', JSON.stringify(what));
+}

@@ -1,15 +1,15 @@
 // lib/data.ts
-export const subjects = [
+export const whoOptions = [
   "ねこ🐱", "いぬ🐶", "うちゅうじん👽️", "おとうさん👨‍⚕️", "まほうつかい🧙", 
   "ロボット🤖", "おかあさん👩", "ニンジャ⚔️", "ピエロ🤡", "ドラゴン🐲"
 ];
 
-export const places = [
+export const whereOptions = [
   "がっこう", "うちゅう", "かいてい", "もり", "しろ", 
   "カフェ", "としょかん", "やまのうえ", "でんしゃ", "ゆめのなか"
 ];
 
-export const actions = [
+export const whatOptions = [
   "おどった", "うたった", "ねた", "たべた", "はしった", 
   "さけんだ", "かくれた", "わらった", "ふっとんだ", "たたかった"
 ];
