@@ -71,16 +71,14 @@ export default function Generator() {
       setSlotStopped((prev) => ({ ...prev, who: true }));
       setSlotValues((prev) => ({ ...prev, who: finalWho }));
       console.log(1);
-    }, 500); // 1秒後に「誰が」を停止
+    }, 800); // 1秒後に「誰が」を停止
     setTimeout(() => {
       setSlotStopped((prev) => ({ ...prev, where: true }));
       setSlotValues((prev) => ({ ...prev, where: finalWhere }));
-    }, 1000); // 2秒後に「どこで」を停止
+    }, 1600); // 2秒後に「どこで」を停止
     setTimeout(() => {
       setSlotStopped((prev) => ({ ...prev, what: true }));
       setSlotValues((prev) => ({ ...prev, what: finalWhat }));
-    }, 1500); // 3秒後に「何をした」を停止し文章生成
-    setTimeout(() => {
       clearInterval(interval); // 回転停止
       setIsSpinning(false);
       // 最終的な文章をslotValuesから生成
@@ -90,13 +88,7 @@ export default function Generator() {
         const newHistory = [finalSentence, ...prev].slice(0, 10); // 最大10件
         return newHistory;
       });
-    }, 2000); 
-  };
-  const handleReset = () => {
-    setSentence(null);
-    setSlotValues({ who: '', where: '', what: '' });
-    setSlotStopped({ who: false, where: false, what: false });
-    setIsSpinning(false);
+    }, 2400); // 3秒後に「何をした」を停止し文章生成
   };
 
   return (
@@ -111,15 +103,6 @@ export default function Generator() {
           }`}
         >
           スタート
-        </button>
-        <button
-          onClick={handleReset}
-          disabled={isSpinning}
-          className={`bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 ${
-            isSpinning ? 'opacity-50 cursor-not-allowed' : ''
-          }`}
-        >
-          リセット
         </button>
         <Link
           href="/history"
