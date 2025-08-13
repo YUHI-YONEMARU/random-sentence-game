@@ -21,19 +21,19 @@ export default function ManageOptions() {
     setOptions(loadedOptions);
   }, []);
 
-  // 選択肢をlocalStorageに保存
-  const save = () => {
-    saveOptions(options.who, options.where, options.what);
-  };
-
   // 選択肢の追加
   const addOption = (type: 'who' | 'where' | 'what', value: string) => {
     if (value.trim() === '') return;
-    setOptions((prev) => ({
-      ...prev,
-      [type]: [...prev[type], value.trim()],
-    }));
-    save();
+    setOptions((prev) => {
+      const newOptions = {
+        ...prev,
+        [type]: [...prev[type], value.trim()],
+      };
+      // 状態更新後に最新の値を保存
+      saveOptions(newOptions.who, newOptions.where, newOptions.what);
+      return newOptions;
+    });
+    // 入力フィールドをクリア
     if (type === 'who') setNewWho('');
     if (type === 'where') setNewWhere('');
     if (type === 'what') setNewWhat('');
@@ -41,21 +41,26 @@ export default function ManageOptions() {
 
   // 選択肢の削除
   const deleteOption = (type: 'who' | 'where' | 'what', index: number) => {
-    setOptions((prev) => ({
-      ...prev,
-      [type]: prev[type].filter((_, i) => i !== index),
-    }));
-    save();
+    setOptions((prev) => {
+      const newOptions = {
+        ...prev,
+        [type]: prev[type].filter((_, i) => i !== index),
+      };
+      // 状態更新後に最新の値を保存
+      saveOptions(newOptions.who, newOptions.where, newOptions.what);
+      return newOptions;
+    });
   };
 
   // 選択肢のリセット
   const resetOptions = () => {
-    setOptions({
+    const newOptions = {
       who: whoOptions,
       where: whereOptions,
       what: whatOptions,
-    });
-    saveOptions(whoOptions, whereOptions, whatOptions);
+    };
+    setOptions(newOptions);
+    saveOptions(newOptions.who, newOptions.where, newOptions.what);
   };
 
   return (
