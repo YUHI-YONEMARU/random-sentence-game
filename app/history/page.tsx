@@ -11,7 +11,7 @@ export default function History() {
   useEffect(() => {
     // クライアントサイドで履歴を共有する方法として、localStorageを使用
     // 実際のアプリではサーバーや状態管理ライブラリを検討
-    const savedHistory = JSON.parse(localStorage.getItem("history") || "[]");
+    const savedHistory = JSON.parse(localStorage.getItem("sentenceHistory") || "[]");
     setHistory(savedHistory);
   }, []);
 

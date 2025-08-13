@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { whoOptions, whereOptions, whatOptions } from '@/lib/data';
 import { loadOptions, saveOptions } from '@/lib/utils';
+import { FaPlay, FaHistory, FaEdit } from 'react-icons/fa'; // アイコンをインポート
 
 export default function Generator() {
   const [sentence, setSentence] = useState<string | null>(null);
@@ -93,28 +94,28 @@ export default function Generator() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <h1 className="text-3xl font-bold mb-6">文章メーカー</h1>
+      <h1 className="text-3xl font-bold mb-6">だれが どこで なにをした？</h1>
       <div className="flex space-x-4 mb-6">
         <button
           onClick={startSlotMachine}
           disabled={isSpinning}
-          className={`bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 ${
+          className={`bg-blue-500 text-white px-16 py-3 rounded hover:bg-blue-600 flex items-center text-lg ${
             isSpinning ? 'opacity-50 cursor-not-allowed' : ''
           }`}
         >
-          スタート
+          <FaPlay className="inline-block mr-2 text-lg" />スタート
         </button>
         <Link
           href="/history"
-          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+          className="bg-green-500 text-white px-3 py-1.5 rounded hover:bg-green-600 flex items-center text-sm"
         >
-          履歴を見る
+          <FaHistory className="inline-block mr-2 text-sm" />履歴
         </Link>
         <Link
           href="/manage"
-          className="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600"
+          className="bg-purple-500 text-white px-3 py-1.5 rounded hover:bg-purple-600 flex items-center text-sm"
         >
-          選択肢を管理
+          <FaEdit className="inline-block mr-2 text-sm" />編集
         </Link>
       </div>
 
@@ -146,6 +147,7 @@ export default function Generator() {
       {sentence && (
         <p className="text-xl font-semibold text-gray-800">{sentence}</p>
       )}
+      
     </div>
   );
 }
